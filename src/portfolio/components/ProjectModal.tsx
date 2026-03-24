@@ -18,18 +18,19 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
   if (!project) return null;
 
   const IconComponent = iconMap[project.emoji];
-  const hasImages = project.images && project.images.length > 0;
+  const images = project.images || [];
+  const hasImages = images.length > 0;
 
   const nextImage = () => {
-    if (project.images) {
-      setCurrentImageIndex((prev) => (prev + 1) % project.images.length);
+    if (images.length > 0) {
+      setCurrentImageIndex((prev) => (prev + 1) % images.length);
     }
   };
 
   const prevImage = () => {
-    if (project.images) {
+    if (images.length > 0) {
       setCurrentImageIndex(
-        (prev) => (prev - 1 + project.images.length) % project.images.length,
+        (prev) => (prev - 1 + images.length) % images.length,
       );
     }
   };
@@ -125,7 +126,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
-                  src={project.images![currentImageIndex]}
+                  src={images[currentImageIndex]}
                   alt={`${project.name} screenshot ${currentImageIndex + 1}`}
                   onClick={() => openLightbox(currentImageIndex)}
                   style={{
@@ -137,7 +138,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                 />
 
                 {/* Navigation Arrows */}
-                {project.images!.length > 1 && (
+                {images.length > 1 && (
                   <>
                     <motion.button
                       whileHover={{ scale: 1.1 }}
@@ -203,7 +204,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                         zIndex: 10,
                       }}
                     >
-                      {project.images!.map((_, idx) => (
+                      {images.map((_, idx) => (
                         <motion.button
                           key={idx}
                           whileHover={{ scale: 1.2 }}
@@ -400,7 +401,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
         {/* Image Lightbox */}
         {showLightbox && hasImages && (
           <ImageLightbox
-            images={project.images!}
+            images={images}
             currentIndex={currentImageIndex}
             onClose={() => setShowLightbox(false)}
             onNext={nextImage}
