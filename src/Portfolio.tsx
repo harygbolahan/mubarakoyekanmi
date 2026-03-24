@@ -11,7 +11,7 @@ import { HeroSection } from "./portfolio/sections/HeroSection";
 import { AboutSection } from "./portfolio/sections/AboutSection";
 import { ProjectsSection } from "./portfolio/sections/ProjectsSection";
 import { SkillsSection } from "./portfolio/sections/SkillsSection";
-import { ExperienceSection } from "./portfolio/sections/ExperienceSection";
+// import { ExperienceSection } from "./portfolio/sections/ExperienceSection";
 import { TestimonialsSection } from "./portfolio/sections/TestimonialsSection";
 import { ContactSection } from "./portfolio/sections/ContactSection";
 
