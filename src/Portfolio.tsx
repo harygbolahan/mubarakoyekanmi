@@ -90,7 +90,7 @@ export default function Portfolio() {
       <AboutSection />
       <ProjectsSection />
       <SkillsSection skillTab={skillTab} setSkillTab={setSkillTab} />
-      <ExperienceSection />
+      {/* <ExperienceSection /> */}
       <TestimonialsSection tIdx={tIdx} setTIdx={setTIdx} />
       <ContactSection />
       <Footer />

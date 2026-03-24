@@ -4,6 +4,9 @@ import {
   TrendingUp,
   MessageSquare,
   Sparkles,
+  CreditCard,
+  Users,
+  Shield,
 } from "lucide-react";
 
 // ═══════════════════════════════════════════════════════
@@ -15,4 +18,7 @@ export const iconMap: Record<string, any> = {
   TrendingUp,
   MessageSquare,
   Sparkles,
+  CreditCard,
+  Users,
+  Shield,
 };

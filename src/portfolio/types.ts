@@ -10,6 +10,9 @@ export interface Project {
   tag: string;
   year: string;
   featured: boolean;
+  link?: string;
+  github?: string;
+  images?: string[];
 }
 
 export interface Experience {

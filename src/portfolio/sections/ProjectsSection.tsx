@@ -1,13 +1,16 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { T, PROJECTS } from "../constants";
 import { fadeInUp, staggerContainer } from "../animations";
 import { iconMap } from "../iconMap";
+import { ProjectModal } from "../components/ProjectModal";
+import type { Project } from "../types";
 
 export function ProjectsSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   return (
     <section
@@ -85,6 +88,10 @@ export function ProjectsSection() {
         >
           {PROJECTS.map((p, i) => {
             const IconComponent = iconMap[p.emoji];
+            const handleClick = (e: React.MouseEvent) => {
+              e.stopPropagation();
+              setSelectedProject(p);
+            };
             return (
               <motion.div
                 key={p.id}
@@ -99,16 +106,22 @@ export function ProjectsSection() {
                   border: `1px solid ${T.border}`,
                   borderRadius: 14,
                   padding: 26,
-                  cursor: "pointer",
+                  cursor: "default",
                   gridColumn: i === 0 ? "1 / -1" : "auto",
                   transition: "all .3s ease",
                 }}
               >
                 <motion.div
                   whileHover={{ scale: 1.02 }}
+                  onClick={
+                    p.images && p.images.length > 0 ? handleClick : undefined
+                  }
                   style={{
                     height: i === 0 ? 200 : 148,
-                    background: `linear-gradient(135deg,${T.s2} 0%,${T.border} 100%)`,
+                    background:
+                      p.images && p.images.length > 0
+                        ? "transparent"
+                        : `linear-gradient(135deg,${T.s2} 0%,${T.border} 100%)`,
                     borderRadius: 8,
                     marginBottom: 20,
                     display: "flex",
@@ -116,30 +129,46 @@ export function ProjectsSection() {
                     justifyContent: "center",
                     overflow: "hidden",
                     position: "relative",
+                    cursor:
+                      p.images && p.images.length > 0 ? "pointer" : "default",
                   }}
                 >
-                  <div
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      backgroundImage: `repeating-linear-gradient(45deg,rgba(180,255,111,.03) 0,rgba(180,255,111,.03) 1px,transparent 0,transparent 50%)`,
-                      backgroundSize: "18px 18px",
-                    }}
-                  />
-                  <motion.div
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <IconComponent
-                      size={i === 0 ? 64 : 52}
-                      color="rgba(180,255,111,0.15)"
-                      strokeWidth={1.5}
+                  {p.images && p.images.length > 0 ? (
+                    <img
+                      src={p.images[0]}
+                      alt={`${p.name} preview`}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
                     />
-                  </motion.div>
+                  ) : (
+                    <>
+                      <div
+                        style={{
+                          position: "absolute",
+                          inset: 0,
+                          backgroundImage: `repeating-linear-gradient(45deg,rgba(180,255,111,.03) 0,rgba(180,255,111,.03) 1px,transparent 0,transparent 50%)`,
+                          backgroundSize: "18px 18px",
+                        }}
+                      />
+                      <motion.div
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <IconComponent
+                          size={i === 0 ? 64 : 52}
+                          color="rgba(180,255,111,0.15)"
+                          strokeWidth={1.5}
+                        />
+                      </motion.div>
+                    </>
+                  )}
                 </motion.div>
 
                 <div
@@ -216,28 +245,36 @@ export function ProjectsSection() {
                   ))}
                 </div>
 
-                <motion.button
-                  whileHover={{ x: 5 }}
-                  style={{
-                    background: "transparent",
-                    border: "none",
-                    color: T.accent,
-                    fontSize: 12,
-                    fontWeight: 600,
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 6,
-                    padding: 0,
-                    marginTop: "auto",
-                  }}
-                >
-                  View Project <ArrowRight size={14} />
-                </motion.button>
+                {p.link && (
+                  <motion.button
+                    whileHover={{ x: 5 }}
+                    onClick={handleClick}
+                    style={{
+                      background: "transparent",
+                      border: "none",
+                      color: T.accent,
+                      fontSize: 12,
+                      fontWeight: 600,
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 6,
+                      padding: 0,
+                      marginTop: "auto",
+                    }}
+                  >
+                    View Project <ArrowRight size={14} />
+                  </motion.button>
+                )}
               </motion.div>
             );
           })}
         </motion.div>
+
+        <ProjectModal
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
+        />
       </div>
     </section>
   );
