@@ -1,73 +1,127 @@
-# React + TypeScript + Vite
+# Mubarak Oyekanmi - Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, animated portfolio website built with React, TypeScript, and Framer Motion. Features smooth animations, custom cursor interactions, and a fully responsive design.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Smooth Animations** - Powered by Framer Motion for fluid page transitions and scroll effects
+- **Custom Cursor** - Interactive cursor that responds to hover states
+- **Responsive Design** - Optimized for all screen sizes using Tailwind CSS
+- **Dark Theme** - Modern dark color scheme with neon green accents
+- **Sections Include:**
+  - Hero with rotating role titles
+  - About section
+  - Featured projects showcase
+  - Skills organized by category (Frontend, Backend, Database, DevOps)
+  - Professional experience timeline
+  - Client testimonials carousel
+  - Contact form
+  - Back-to-top button
 
-## React Compiler
+## 🚀 Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Framework:** React 19 + TypeScript
+- **Build Tool:** Vite 8
+- **Styling:** Tailwind CSS 4
+- **Animations:** Framer Motion
+- **Icons:** Lucide React
+- **Linting:** ESLint 9
 
-## Expanding the ESLint configuration
+## 📦 Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+```bash
+# Clone the repository
+git clone <repository-url>
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# Navigate to project directory
+cd mubarakoyekanmi
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Install dependencies
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠️ Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# Start development server
+npm run dev
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+
+# Run linter
+npm run lint
 ```
+
+## 📁 Project Structure
+
+```
+src/
+├── portfolio/
+│   ├── components/      # Reusable UI components
+│   ├── sections/        # Page sections (Hero, About, Projects, etc.)
+│   ├── animations.ts    # Framer Motion animation variants
+│   ├── constants.ts     # Portfolio data and design tokens
+│   ├── iconMap.ts       # Icon mappings
+│   ├── styles.ts        # Global CSS styles
+│   └── types.ts         # TypeScript type definitions
+├── App.tsx              # Original app component
+├── Portfolio.tsx        # Main portfolio component
+├── main.tsx            # Application entry point
+└── index.css           # Global styles
+```
+
+## 🎨 Customization
+
+### Update Portfolio Content
+
+Edit `src/portfolio/constants.ts` to customize:
+
+- **ROLES** - Rotating job titles in hero section
+- **PROJECTS** - Your project portfolio
+- **SKILLS** - Technical skills by category
+- **EXPERIENCE** - Work history
+- **TESTIMONIALS** - Client/colleague reviews
+- **T (Design Tokens)** - Colors, fonts, and theme values
+
+### Modify Sections
+
+Individual sections are located in `src/portfolio/sections/`:
+
+- `HeroSection.tsx`
+- `AboutSection.tsx`
+- `ProjectsSection.tsx`
+- `SkillsSection.tsx`
+- `ExperienceSection.tsx`
+- `TestimonialsSection.tsx`
+- `ContactSection.tsx`
+
+## 🌐 Deployment
+
+The project is optimized for deployment on:
+
+- Vercel
+- Netlify
+- GitHub Pages
+- Any static hosting service
+
+Build the project with `npm run build` and deploy the `dist` folder.
+
+## 📄 License
+
+Private project - All rights reserved
+
+## 👤 Author
+
+Mubarak Gbolahan Oyekanmi
+
+- Full Stack Engineer
+- Frontend Specialist
+- React Developer
+
+---
+
+Built with ❤️ using React + TypeScript + Vite
