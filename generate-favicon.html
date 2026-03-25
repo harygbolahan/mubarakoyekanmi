@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Favicon PNG</title>
+    <style>
+        body {
+            font-family: system-ui;
+            padding: 40px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        canvas {
+            border: 2px solid #B4FF6F;
+            margin: 20px 0;
+            display: block;
+        }
+        button {
+            background: #B4FF6F;
+            color: #1a1a1a;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px;
+            margin-right: 10px;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        .info {
+            margin-top: 20px;
+            padding: 16px;
+            background: #2d2d2d;
+            border-radius: 8px;
+            border-left: 4px solid #B4FF6F;
+        }
+    </style>
+</head>
+<body>
+    <h1>Favicon Generator</h1>
+    <p>Click the buttons below to download your favicon in different sizes:</p>
+    
+    <canvas id="canvas512" width="512" height="512"></canvas>
+    <button onclick="downloadFavicon(512)">Download 512x512 PNG</button>
+    
+    <canvas id="canvas192" width="192" height="192"></canvas>
+    <button onclick="downloadFavicon(192)">Download 192x192 PNG</button>
+    
+    <canvas id="canvas32" width="32" height="32"></canvas>
+    <button onclick="downloadFavicon(32)">Download 32x32 PNG</button>
+    
+    <div class="info">
+        <strong>Instructions:</strong>
+        <ol>
+            <li>Download the 512x512 version and save it as <code>favicon.png</code> in your <code>public</code> folder</li>
+            <li>Optionally download other sizes for better optimization</li>
+            <li>The favicon will now show in WhatsApp and other social media previews</li>
+        </ol>
+    </div>
+
+    <script>
+        function drawFavicon(canvas) {
+            const ctx = canvas.getContext('2d');
+            const size = canvas.width;
+            const scale = size / 128;
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, size, size);
+            
+            // Background gradient
+            const bgGradient = ctx.createLinearGradient(0, 0, size, size);
+            bgGradient.addColorStop(0, '#1a1a1a');
+            bgGradient.addColorStop(1, '#2d2d2d');
+            
+            // Draw rounded rectangle background
+            const radius = 24 * scale;
+            ctx.fillStyle = bgGradient;
+            ctx.beginPath();
+            ctx.roundRect(0, 0, size, size, radius);
+            ctx.fill();
+            
+            // Draw border
+            ctx.strokeStyle = 'rgba(180, 255, 111, 0.3)';
+            ctx.lineWidth = 3 * scale;
+            ctx.beginPath();
+            ctx.roundRect(0, 0, size, size, radius);
+            ctx.stroke();
+            
+            // Draw MO text with gradient
+            const textGradient = ctx.createLinearGradient(0, 0, size, size);
+            textGradient.addColorStop(0, '#B4FF6F');
+            textGradient.addColorStop(1, '#9FE65A');
+            
+            ctx.fillStyle = textGradient;
+            ctx.font = `700 ${56 * scale}px system-ui, -apple-system, sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.letterSpacing = `${-2 * scale}px`;
+            ctx.fillText('MO', size / 2, size / 2 + (4 * scale));
+            
+            // Draw code brackets
+            ctx.strokeStyle = 'rgba(180, 255, 111, 0.6)';
+            ctx.lineWidth = 2.5 * scale;
+            ctx.lineCap = 'round';
+            
+            // Left bracket
+            ctx.beginPath();
+            ctx.moveTo(28 * scale, 40 * scale);
+            ctx.lineTo(24 * scale, 44 * scale);
+            ctx.lineTo(28 * scale, 48 * scale);
+            ctx.stroke();
+            
+            // Right bracket
+            ctx.beginPath();
+            ctx.moveTo(100 * scale, 40 * scale);
+            ctx.lineTo(104 * scale, 44 * scale);
+            ctx.lineTo(100 * scale, 48 * scale);
+            ctx.stroke();
+        }
+        
+        // Draw all sizes
+        drawFavicon(document.getElementById('canvas512'));
+        drawFavicon(document.getElementById('canvas192'));
+        drawFavicon(document.getElementById('canvas32'));
+        
+        function downloadFavicon(size) {
+            const canvas = document.getElementById(`canvas${size}`);
+            const link = document.createElement('a');
+            link.download = `favicon-${size}x${size}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+    </script>
+</body>
+</html>
