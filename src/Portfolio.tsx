@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, useScroll } from "framer-motion";
 import { T, ROLES } from "./portfolio/constants";
 import { CSS } from "./portfolio/styles";
+import { updateSEO, SECTION_SEO } from "./portfolio/seo";
 import { LoadingScreen } from "./portfolio/components/LoadingScreen";
 import { CustomCursor } from "./portfolio/components/CustomCursor";
 import { BackToTop } from "./portfolio/components/BackToTop";
@@ -46,6 +47,11 @@ export default function Portfolio() {
         const el = document.getElementById(ids[i]);
         if (el && el.offsetTop <= y) {
           setActiveNav(ids[i]);
+          // Update SEO based on active section
+          const sectionKey = ids[i] as keyof typeof SECTION_SEO;
+          if (SECTION_SEO[sectionKey]) {
+            updateSEO(SECTION_SEO[sectionKey]);
+          }
           break;
         }
       }
@@ -83,16 +89,23 @@ export default function Portfolio() {
           scaleX: scrollYProgress,
           zIndex: 300,
         }}
+        role="progressbar"
+        aria-label="Page scroll progress"
+        aria-valuenow={Math.round(scrollYProgress.get() * 100)}
+        aria-valuemin={0}
+        aria-valuemax={100}
       />
 
       <Navigation activeNav={activeNav} go={go} />
-      <HeroSection go={go} roleIdx={roleIdx} />
-      <AboutSection />
-      <ProjectsSection />
-      <SkillsSection skillTab={skillTab} setSkillTab={setSkillTab} />
-      {/* <ExperienceSection /> */}
-      <TestimonialsSection tIdx={tIdx} setTIdx={setTIdx} />
-      <ContactSection />
+      <main>
+        <HeroSection go={go} roleIdx={roleIdx} />
+        <AboutSection />
+        <ProjectsSection />
+        <SkillsSection skillTab={skillTab} setSkillTab={setSkillTab} />
+        {/* <ExperienceSection /> */}
+        <TestimonialsSection tIdx={tIdx} setTIdx={setTIdx} />
+        <ContactSection />
+      </main>
       <Footer />
     </div>
   );
