@@ -15,7 +15,7 @@ import {
 // ═══════════════════════════════════════════════════════
 // ICON MAPPING
 // ═══════════════════════════════════════════════════════
-export const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
+export const iconMap: Record<string, React.ComponentType<React.SVGProps<SVGSVGElement> & { size?: number }>> = {
   Workflow,
   ShoppingCart,
   TrendingUp,
