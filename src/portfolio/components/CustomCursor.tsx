@@ -17,7 +17,7 @@ export function CustomCursor() {
     };
     window.addEventListener("mousemove", moveCursor);
     return () => window.removeEventListener("mousemove", moveCursor);
-  }, []);
+  }, [cursorX, cursorY]);
 
   return (
     <motion.div
