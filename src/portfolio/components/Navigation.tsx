@@ -52,7 +52,7 @@ export function Navigation({ activeNav, go }: NavigationProps) {
         className="dsk-nav"
         style={{ display: "flex", gap: 28, alignItems: "center" }}
       >
-        {["about", "projects", "skills", "experience", "contact"].map((s) => (
+        {["about", "projects", "skills",  "contact"].map((s) => (
           <button
             key={s}
             className={`nav-a ${activeNav === s ? "act" : ""}`}

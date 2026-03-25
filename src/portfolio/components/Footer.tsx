@@ -29,7 +29,7 @@ export function Footer() {
       <div style={{ color: T.muted, fontSize: 12 }}>
         Built with React · Osogbo, Nigeria 🇳🇬
       </div>
-      <div style={{ display: "flex", gap: 20 }}>
+      {/* <div style={{ display: "flex", gap: 20 }}>
         {[
           { name: "GitHub", icon: ExternalLink },
           { name: "LinkedIn", icon: ExternalLink },
@@ -54,7 +54,7 @@ export function Footer() {
             {name}
           </motion.a>
         ))}
-      </div>
+      </div> */}
     </footer>
   );
 }

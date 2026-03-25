@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Smartphone, Globe } from "lucide-react";
 import { T, PROJECTS } from "../constants";
 import { fadeInUp, staggerContainer } from "../animations";
 import { iconMap } from "../iconMap";
@@ -63,7 +63,7 @@ export function ProjectsSection() {
               <span style={{ color: T.accent }}>ship & scale.</span>
             </h2>
           </div>
-          <motion.a
+          {/* <motion.a
             href="#"
             whileHover={{ color: T.accent, borderColor: T.accent }}
             style={{
@@ -76,7 +76,7 @@ export function ProjectsSection() {
             }}
           >
             View all on GitHub →
-          </motion.a>
+          </motion.a> */}
         </motion.div>
 
         <motion.div
@@ -179,21 +179,82 @@ export function ProjectsSection() {
                     marginBottom: 10,
                   }}
                 >
-                  <span
-                    style={{
-                      background: T.accentDim,
-                      color: T.accent,
-                      fontSize: 10,
-                      fontWeight: 700,
-                      letterSpacing: "0.08em",
-                      textTransform: "uppercase",
-                      padding: "4px 10px",
-                      borderRadius: 100,
-                    }}
+                  <div
+                    style={{ display: "flex", gap: 6, alignItems: "center" }}
                   >
-                    {p.tag}
-                  </span>
-                  <span style={{ color: T.muted, fontSize: 12 }}>{p.year}</span>
+                    <span
+                      style={{
+                        background: T.accentDim,
+                        color: T.accent,
+                        fontSize: 10,
+                        fontWeight: 700,
+                        letterSpacing: "0.08em",
+                        textTransform: "uppercase",
+                        padding: "4px 10px",
+                        borderRadius: 100,
+                      }}
+                    >
+                      {p.tag}
+                    </span>
+                    {p.platform === "mobile" && (
+                      <span
+                        style={{
+                          background: "rgba(59, 130, 246, 0.1)",
+                          color: "#60A5FA",
+                          fontSize: 10,
+                          fontWeight: 700,
+                          letterSpacing: "0.08em",
+                          textTransform: "uppercase",
+                          padding: "4px 10px",
+                          borderRadius: 100,
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 4,
+                        }}
+                      >
+                        <Smartphone size={10} /> MOBILE
+                      </span>
+                    )}
+                    {p.platform === "both" && (
+                      <span
+                        style={{
+                          background: "rgba(236, 72, 153, 0.1)",
+                          color: "#F472B6",
+                          fontSize: 10,
+                          fontWeight: 700,
+                          letterSpacing: "0.08em",
+                          textTransform: "uppercase",
+                          padding: "4px 10px",
+                          borderRadius: 100,
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 4,
+                        }}
+                      >
+                        <Smartphone size={10} /> iOS & ANDROID
+                      </span>
+                    )}
+                    {p.platform === "web" && (
+                      <span
+                        style={{
+                          background: "rgba(168, 85, 247, 0.1)",
+                          color: "#C084FC",
+                          fontSize: 10,
+                          fontWeight: 700,
+                          letterSpacing: "0.08em",
+                          textTransform: "uppercase",
+                          padding: "4px 10px",
+                          borderRadius: 100,
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 4,
+                        }}
+                      >
+                        <Globe size={10} /> WEB
+                      </span>
+                    )}
+                  </div>
+                  {/* <span style={{ color: T.muted, fontSize: 12 }}>{p.year}</span> */}
                 </div>
 
                 <h3
@@ -245,7 +306,7 @@ export function ProjectsSection() {
                   ))}
                 </div>
 
-                {p.link && (
+                {(p.link || p.appStore || p.playStore) && (
                   <motion.button
                     whileHover={{ x: 5 }}
                     onClick={handleClick}
@@ -263,7 +324,10 @@ export function ProjectsSection() {
                       marginTop: "auto",
                     }}
                   >
-                    View Project <ArrowRight size={14} />
+                    {p.platform === "mobile" || p.platform === "both"
+                      ? "View App Details"
+                      : "View Project"}{" "}
+                    <ArrowRight size={14} />
                   </motion.button>
                 )}
               </motion.div>

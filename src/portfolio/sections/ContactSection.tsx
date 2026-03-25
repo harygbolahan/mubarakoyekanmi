@@ -1,13 +1,50 @@
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Send, CheckCircle2, Mail, ExternalLink } from "lucide-react";
+import { CheckCircle2, MessageCircle } from "lucide-react";
 import { T } from "../constants";
 
 export function ContactSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    service: "",
+    message: "",
+  });
   const [sent, setSent] = useState(false);
+
+  const services = [
+    "Web Development",
+    "Mobile App Development",
+    "UI/UX Design",
+    "Full Stack Development",
+    "API Development",
+    "Consulting",
+    "Other",
+  ];
+
+  const handleSubmit = () => {
+    const { name, email, service, message } = form;
+
+    // Construct WhatsApp message
+    const whatsappMessage = `Hi! I'm ${name}%0A%0AEmail: ${email}%0A%0AService Needed: ${service}%0A%0AMessage:%0A${message}`;
+
+    // WhatsApp URL with your number (remove leading 0 and add country code)
+    const whatsappUrl = `https://wa.me/2348136642399?text=${whatsappMessage}`;
+
+    // Open WhatsApp in new tab
+    window.open(whatsappUrl, "_blank");
+
+    // Show success message
+    setSent(true);
+
+    // Reset form after 3 seconds
+    setTimeout(() => {
+      setSent(false);
+      setForm({ name: "", email: "", service: "", message: "" });
+    }, 3000);
+  };
 
   const inp: React.CSSProperties = {
     background: T.bg,
@@ -64,8 +101,8 @@ export function ContactSection() {
             <span style={{ color: T.accent }}>Let's build.</span>
           </h2>
           <p style={{ color: T.muted, fontSize: 15, lineHeight: 1.8 }}>
-            Whether it's a new product, a redesign, or just a question — drop me
-            a message and I'll respond within 24 hours.
+            Whether it's a new product, a redesign, or just a question — send me
+            a message on WhatsApp and I'll respond within minutes.
           </p>
         </motion.div>
 
@@ -107,6 +144,23 @@ export function ContactSection() {
                   }
                 />
               </div>
+              <motion.select
+                whileFocus={{ scale: 1.02 }}
+                style={inp}
+                value={form.service}
+                onChange={(e) =>
+                  setForm((f) => ({ ...f, service: e.target.value }))
+                }
+              >
+                <option value="" disabled>
+                  Select a service...
+                </option>
+                {services.map((service) => (
+                  <option key={service} value={service}>
+                    {service}
+                  </option>
+                ))}
+              </motion.select>
               <motion.textarea
                 whileFocus={{ scale: 1.02 }}
                 style={{ ...inp, resize: "vertical" as const }}
@@ -120,7 +174,10 @@ export function ContactSection() {
               <motion.button
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => setSent(true)}
+                onClick={handleSubmit}
+                disabled={
+                  !form.name || !form.email || !form.service || !form.message
+                }
                 style={{
                   background: T.accent,
                   color: "#080808",
@@ -131,17 +188,24 @@ export function ContactSection() {
                   letterSpacing: "0.08em",
                   padding: 16,
                   borderRadius: 10,
-                  cursor: "pointer",
+                  cursor:
+                    !form.name || !form.email || !form.service || !form.message
+                      ? "not-allowed"
+                      : "pointer",
                   textTransform: "uppercase",
                   width: "100%",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   gap: 8,
+                  opacity:
+                    !form.name || !form.email || !form.service || !form.message
+                      ? 0.5
+                      : 1,
                 }}
               >
-                <Send size={16} />
-                SEND MESSAGE
+                <MessageCircle size={16} />
+                SEND VIA WHATSAPP
               </motion.button>
             </motion.div>
           ) : (
@@ -171,15 +235,15 @@ export function ContactSection() {
                   marginBottom: 10,
                 }}
               >
-                Message sent!
+                Opening WhatsApp...
               </h3>
               <p style={{ color: T.muted, fontSize: 14 }}>
-                I'll get back to you within 24 hours.
+                Your message is ready to send via WhatsApp!
               </p>
             </motion.div>
           )}
 
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -240,7 +304,7 @@ export function ContactSection() {
                 <div style={{ color: T.muted, fontSize: 11 }}>{handle}</div>
               </motion.div>
             ))}
-          </motion.div>
+          </motion.div> */}
         </motion.div>
       </div>
     </section>

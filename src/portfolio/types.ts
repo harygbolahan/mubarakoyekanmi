@@ -13,6 +13,9 @@ export interface Project {
   link?: string;
   github?: string;
   images?: string[];
+  platform?: "web" | "mobile" | "both";
+  appStore?: string;
+  playStore?: string;
 }
 
 export interface Experience {

@@ -1,5 +1,12 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, Code, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  X,
+  ExternalLink,
+  Code,
+  ChevronLeft,
+  ChevronRight,
+  Smartphone,
+} from "lucide-react";
 import { useState } from "react";
 import { T } from "../constants";
 import type { Project } from "../types";
@@ -271,9 +278,9 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
               >
                 {project.tag}
               </span>
-              <span style={{ color: T.muted, fontSize: 13 }}>
+              {/* <span style={{ color: T.muted, fontSize: 13 }}>
                 {project.year}
-              </span>
+              </span> */}
             </div>
 
             {/* Title */}
@@ -365,6 +372,58 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                 >
                   <ExternalLink size={16} />
                   Visit Live Site
+                </motion.a>
+              )}
+              {project.appStore && (
+                <motion.a
+                  href={project.appStore}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  style={{
+                    background: T.accent,
+                    color: T.bg,
+                    fontSize: 14,
+                    fontWeight: 600,
+                    padding: "12px 24px",
+                    borderRadius: 8,
+                    textDecoration: "none",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 8,
+                    border: "none",
+                    cursor: "pointer",
+                  }}
+                >
+                  <Smartphone size={16} />
+                  App Store
+                </motion.a>
+              )}
+              {project.playStore && (
+                <motion.a
+                  href={project.playStore}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  style={{
+                    background: T.accent,
+                    color: T.bg,
+                    fontSize: 14,
+                    fontWeight: 600,
+                    padding: "12px 24px",
+                    borderRadius: 8,
+                    textDecoration: "none",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 8,
+                    border: "none",
+                    cursor: "pointer",
+                  }}
+                >
+                  <Smartphone size={16} />
+                  Play Store
                 </motion.a>
               )}
               {project.github && (

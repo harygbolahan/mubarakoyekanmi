@@ -7,6 +7,9 @@ import {
   CreditCard,
   Users,
   Shield,
+  Activity,
+  CheckSquare,
+  Smartphone,
 } from "lucide-react";
 
 // ═══════════════════════════════════════════════════════
@@ -21,4 +24,7 @@ export const iconMap: Record<string, any> = {
   CreditCard,
   Users,
   Shield,
+  Activity,
+  CheckSquare,
+  Smartphone,
 };
